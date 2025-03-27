@@ -5,8 +5,9 @@ setInterval(() => {
 }, 2000);  
 emitter.on("timer", (msg) => console.log(msg));  
 
-emitter.emit("Start", "Beginning Right Now");
 emitter.on("Start", (msg) => console.log(msg));
+emitter.emit("Start", "Beginning Right Now");
+
 
 
 const waitForEvent = () => {  
