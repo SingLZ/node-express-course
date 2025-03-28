@@ -1,6 +1,6 @@
 const { createReadStream } = require('fs')
 
-const stream = createReadStream('../content/big.txt', {encoding: 'utf8'}, { highWaterMark: 200 })
+const stream = createReadStream('../content/big.txt', {encoding: 'utf8', highWaterMark: 200 })
 
 let count = 0;
 
