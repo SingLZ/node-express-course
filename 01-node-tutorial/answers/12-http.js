@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
         <p>This page is not avaiable</p>
         <a href="/">back home</a>
         `);
-    }
+    }1
 
 });
 
