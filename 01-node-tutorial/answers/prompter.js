@@ -21,7 +21,8 @@ const getBody = (req, callback) => {
 };
 
 // here, you could declare one or more variables to store what comes back from the form.
-let item = "Enter something below.";
+let item = "Guess a number between 1 - 100.";
+let guess = 21;
 
 // here, you can change the form below to modify the input fields and what is displayed.
 // This is just ordinary html with string interpolation.
@@ -45,7 +46,16 @@ const server = http.createServer((req, res) => {
       console.log("The body of the post is ", body);
       // here, you can add your own logic
       if (body["item"]) {
-        item = body["item"];
+        if (guess == body["item"]) {
+          item = "You guessed it!";
+        }
+        else if (guess > body["item"]) {
+          item = "Too low.";
+        }
+        else if (guess < body["item"]) {
+          item = "Too high."; 
+        }
+        
       } else {
         item = "Nothing was entered.";
       }
