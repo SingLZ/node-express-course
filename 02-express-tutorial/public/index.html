@@ -1,0 +1,31 @@
+<h1>Hello World</h1>
+<button id="fetch">Fetch Products</button>
+<div id="products">
+    <h2>Products</h2>
+    <ul id="product-list">
+        <!-- Products will be displayed here -->
+    </ul>
+
+<script>
+    const fetchButton = document.getElementById('fetch');
+    const productList = document.getElementById('product-list');
+
+    fetchButton.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/api/v1/products');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const { products } = await response.json(); 
+            console.log(products);
+            productList.innerHTML = ''; 
+            products.forEach(product => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `ID: ${product.id}, Name: ${product.name}, Price: ${product.price}`;
+                productList.appendChild(listItem);
+            })
+        } catch (error) {
+            console.error('There has been a problem with your fetch operation:', error);
+        }
+    });
+</script>
