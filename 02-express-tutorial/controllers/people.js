@@ -25,12 +25,18 @@ const getPerson = (req, res) => {
 const updateName = (req, res) => {
     const {id, name} = req.body;
     const person = people.find((person) => person.id === parseInt(id));
-    person.name = name;
-    res.status(200).json({person});
     if (!person) {
-        return res.status(404).json({message: `That person was not found.`})
+        return res.status(404).json({message : `That person was not found.`});
+    }
+
+    if (!name) {
+            return res.status(400).json({ message: "Name is required" });
+        }
+
+    person.name = name;
+    res.status(200).json({ message:" Name updated successfully" });
 }
-}
+
 
 const deletePerson = (req, res) => {
     const idToDelete = parseInt(req.params.id);

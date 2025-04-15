@@ -3,8 +3,6 @@ const {products, people} =  require('./data');
 const peopleRouter = require('./routes/people');
 const app = express();
 
-app.use(express.static("./public")); // Middleware to parse JSON bodies
-
 function logger(req, res, next) {
     console.log(`${req.method} ${req.url}`);
     const time = new Date().toLocaleString();
@@ -13,6 +11,10 @@ function logger(req, res, next) {
 }
 
 app.use(logger); 
+
+app.use(express.static("./public")); // Middleware to parse JSON bodies
+
+
 
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(express.urlencoded({extended: false})); // Middleware to parse URL-encoded bodies
@@ -25,10 +27,6 @@ app.get('/api/v1/test', (req, res) => {
 
 app.get('/api/v1/products', (req, res) => {
     res.json({products});
- })
-
- app.get('/api/v1/people', (req, res) => {
-    res.json({people});
  })
 
 
@@ -74,14 +72,7 @@ app.get('/api/v1/query', (req, res) => {
     res.status(200).json({sortedProducts}); // Send the product as a response
 })
 
-app.post('/api/v1/people', (req, res) => {
-    if (req.body.name) {
-        people.push({id: people.length + 1, name: req.body.name});
-        return res.status(201).json({success: true, name: req.body.name});
-    } else {
-        res.status(400).json({success: false, message: "Please provide a name"});
-    }
-})
+
 
 app.all('*', (req, res) => {
     res.status(404).send('Route does not exist');
