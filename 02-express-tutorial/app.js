@@ -1,9 +1,25 @@
 const express = require('express');
-const {products} =  require('./data');
-
+const {products, people} =  require('./data');
+const peopleRouter = require('./routes/people');
 const app = express();
 
+function logger(req, res, next) {
+    console.log(`${req.method} ${req.url}`);
+    const time = new Date().toLocaleString();
+    console.log(time);
+    next(); // Call the next middleware or route handler
+}
+
+app.use(logger); 
+
 app.use(express.static("./public")); // Middleware to parse JSON bodies
+
+
+
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.urlencoded({extended: false})); // Middleware to parse URL-encoded bodies
+app.use('/api/v1/people', peopleRouter);
+
 
 app.get('/api/v1/test', (req, res) => {
    res.json({message: "It worked!"});
@@ -12,6 +28,7 @@ app.get('/api/v1/test', (req, res) => {
 app.get('/api/v1/products', (req, res) => {
     res.json({products});
  })
+
 
 app.get('/api/v1/products/:productID', (req, res) => {
     const idToFind = parseInt(req.params.productID); // req.params will give us the route parameters
@@ -55,9 +72,7 @@ app.get('/api/v1/query', (req, res) => {
     res.status(200).json({sortedProducts}); // Send the product as a response
 })
 
-app.post('/', (req, res) => {
-    
-})
+
 
 app.all('*', (req, res) => {
     res.status(404).send('Route does not exist');
@@ -67,4 +82,5 @@ app.all('*', (req, res) => {
 app.listen(3000, () => {
     console.log('Server is listening on port 3000...');
 })
+
 
