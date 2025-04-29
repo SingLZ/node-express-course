@@ -9,4 +9,4 @@ const createCustomError = (msg, statusCode) => {
   return new CustomAPIError(msg, statusCode);
 }
 
-modeule.exports = { CustomAPIError, createCustomError };
+module.exports = { CustomAPIError, createCustomError };

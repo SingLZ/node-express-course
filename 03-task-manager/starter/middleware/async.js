@@ -9,4 +9,4 @@ const asyncWrapper = (fn) => {
   
 }
 
-modeule.exports = asyncWrapper
+module.exports = asyncWrapper
